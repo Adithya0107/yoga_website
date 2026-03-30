@@ -17,6 +17,9 @@ interface UserData {
   name: string;
   email?: string;
   phone_number?: string;
+  dietaryPreference: string;
+  startDate?: string;
+  calories: number;
 }
 
 interface UserContextType {
@@ -41,7 +44,10 @@ const defaultUserData: UserData = {
   streak: 0,
   minutes: 0,
   level: 1,
-  name: 'Aditya'
+  name: 'Aditya',
+  dietaryPreference: '',
+  startDate: '2026-01-15',
+  calories: 0
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);

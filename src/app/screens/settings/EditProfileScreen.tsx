@@ -22,12 +22,12 @@ export function EditProfileScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
         <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white shrink-0">
+        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50 shrink-0">
           <button onClick={() => navigate("/profile")} className="p-2 -ml-2">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -41,13 +41,13 @@ export function EditProfileScreen() {
         </div>
 
         {/* Profile Photo */}
-        <div className="px-6 pb-6 pt-6 bg-gray-50">
+        <div className="px-6 pb-6 pt-6 bg-transparent">
           <div className="flex flex-col items-center">
             <div className="relative">
               <div className="w-32 h-32 bg-gradient-to-br from-purple-600 to-purple-400 rounded-full flex items-center justify-center shadow-lg">
                 <User className="w-16 h-16 text-white" />
               </div>
-              <button className="absolute bottom-0 right-0 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-gray-50">
+              <button className="absolute bottom-0 right-0 w-10 h-10 bg-white/60 backdrop-blur-xl border border-white/50 rounded-full flex items-center justify-center shadow-lg border-2 border-gray-50">
                 <Camera className="w-5 h-5 text-purple-600" />
               </button>
             </div>
@@ -58,7 +58,7 @@ export function EditProfileScreen() {
         </div>
 
         {/* Form */}
-        <div className="px-6 space-y-4 bg-gray-50 text-left">
+        <div className="px-6 space-y-4 bg-transparent text-left">
           <div>
             <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
               Full Name
@@ -67,7 +67,7 @@ export function EditProfileScreen() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-white rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none -ml-0"
+              className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none -ml-0"
             />
           </div>
 
@@ -79,7 +79,7 @@ export function EditProfileScreen() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none"
+              className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none"
             />
           </div>
 
@@ -91,7 +91,7 @@ export function EditProfileScreen() {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               rows={4}
-              className="w-full bg-white rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none resize-none"
+              className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none resize-none"
             />
           </div>
 
@@ -103,13 +103,13 @@ export function EditProfileScreen() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-white rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none"
+              className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none"
             />
           </div>
         </div>
 
         {/* Save Button */}
-        <div className="px-6 pt-8 pb-8 bg-gray-50">
+        <div className="px-6 pt-8 pb-8 bg-transparent">
           <button 
             className="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white py-4 rounded-full font-bold uppercase tracking-wider text-sm shadow-lg"
             onClick={handleSave}

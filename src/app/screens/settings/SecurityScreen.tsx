@@ -22,7 +22,7 @@ export function SecurityScreen() {
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-4 pt-4 pb-6 bg-white shrink-0">
+        <div className="flex items-center gap-4 px-4 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50 shrink-0">
           <button 
             onClick={() => navigate("/profile")} 
             className="w-10 h-10 flex items-center justify-center p-0 -ml-2"
@@ -54,9 +54,9 @@ export function SecurityScreen() {
         </div>
 
         <div className="px-6 pb-6 text-left">
-          <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
             {/* Change Password */}
-            <button className="w-full px-5 py-5 flex items-center gap-4 text-left hover:bg-gray-50 transition-colors">
+            <button className="w-full px-5 py-5 flex items-center gap-4 text-left hover:bg-transparent transition-colors">
               <div className="w-10 h-10 bg-[#F3E8FF] rounded-[14px] flex items-center justify-center shrink-0">
                 <Lock className="w-5 h-5 text-[#9810FA]" />
               </div>
@@ -67,7 +67,7 @@ export function SecurityScreen() {
               <ChevronLeft className="w-5 h-5 text-[#99A1AF] shrink-0 rotate-180" />
             </button>
             
-            <button className="w-full px-5 py-5 flex items-center gap-4 text-left border-t border-gray-50 hover:bg-gray-50 transition-colors">
+            <button className="w-full px-5 py-5 flex items-center gap-4 text-left border-t border-gray-50 hover:bg-transparent transition-colors">
               <div className="w-10 h-10 bg-blue-50 rounded-[14px] flex items-center justify-center shrink-0">
                 <Shield className="w-5 h-5 text-blue-600" />
               </div>
@@ -88,7 +88,7 @@ export function SecurityScreen() {
         </div>
 
         <div className="px-6 pb-6 text-left">
-          <div className="bg-white rounded-3xl p-5 shadow-sm space-y-6">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-5 shadow-sm space-y-6">
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 bg-green-50 rounded-[14px] flex items-center justify-center shrink-0">
                 <Smartphone className="w-5 h-5 text-green-600" />
@@ -100,7 +100,7 @@ export function SecurityScreen() {
             </div>
             
             <div className="flex items-center gap-4 opacity-50">
-              <div className="w-10 h-10 bg-gray-100 rounded-[14px] flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 bg-transparent rounded-[14px] flex items-center justify-center shrink-0">
                 <Smartphone className="w-5 h-5 text-gray-600" />
               </div>
               <div className="flex-1">

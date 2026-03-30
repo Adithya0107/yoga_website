@@ -25,8 +25,8 @@ export function FrequencyScreen() {
 
   return (
     <OnboardingLayout 
-      currentStep={9} 
-      totalSteps={9} 
+      currentStep={10} 
+      totalSteps={10} 
       onNext={handleNext}
       canProceed={!!selectedFrequency}
     >

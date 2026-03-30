@@ -25,8 +25,8 @@ export function ActivityScreen() {
 
   return (
     <OnboardingLayout 
-      currentStep={6} 
-      totalSteps={9} 
+      currentStep={7} 
+      totalSteps={10} 
       onNext={handleNext}
       canProceed={!!selectedActivity}
     >

@@ -20,7 +20,7 @@ export function HeightScreen() {
   return (
     <OnboardingLayout 
       currentStep={3} 
-      totalSteps={9} 
+      totalSteps={10} 
       onNext={handleNext}
       canProceed={true}
     >

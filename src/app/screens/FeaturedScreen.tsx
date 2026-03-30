@@ -70,7 +70,7 @@ export function FeaturedScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
       {/* Header */}
       <div className="flex items-center justify-between px-6 pt-6 pb-6 text-left">
         <div>
@@ -88,7 +88,7 @@ export function FeaturedScreen() {
           return (
             <div 
               key={index} 
-              className="bg-white rounded-[32px] p-5 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-purple-100 group"
+              className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-[32px] p-5 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-purple-100 group"
               onClick={() => navigate(`/video-session/${yogaClass.id}`)}
               style={{
                 animationDelay: `${index * 100}ms`

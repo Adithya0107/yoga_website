@@ -25,8 +25,8 @@ export function GoalScreen() {
 
   return (
     <OnboardingLayout 
-      currentStep={5} 
-      totalSteps={9} 
+      currentStep={6} 
+      totalSteps={10} 
       onNext={handleNext}
       canProceed={!!selectedGoal}
     >

@@ -12,12 +12,12 @@ export function AppearanceScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
         <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white">
+        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50">
           <button onClick={() => navigate("/profile")} className="p-2 -ml-2">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -38,7 +38,7 @@ export function AppearanceScreen() {
         </div>
 
         <div className="px-6 pb-6">
-          <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
             <div className="flex items-center justify-between p-5">
               <div>
                 <h3 className="font-bold">Reduce Motion</h3>
@@ -52,7 +52,7 @@ export function AppearanceScreen() {
                   className="sr-only peer" 
                 />
                 <div className="w-12 h-7 bg-gray-200 rounded-full peer peer-checked:bg-purple-600 transition-colors"></div>
-                <div className="absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-5"></div>
+                <div className="absolute left-1 top-1 w-5 h-5 bg-white/60 backdrop-blur-xl border border-white/50 rounded-full transition-transform peer-checked:translate-x-5"></div>
               </label>
             </div>
           </div>

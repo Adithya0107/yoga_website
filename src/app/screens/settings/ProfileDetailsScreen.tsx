@@ -29,12 +29,12 @@ export function ProfileDetailsScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
         <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white shrink-0">
+        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50 shrink-0">
           <button onClick={() => navigate("/profile")} className="p-2 -ml-2">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -48,13 +48,13 @@ export function ProfileDetailsScreen() {
         </div>
 
         {/* Form */}
-        <div className="px-6 pb-2 pt-6 bg-gray-50 text-left">
+        <div className="px-6 pb-2 pt-6 bg-transparent text-left">
           <h2 className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-4">
             Demographics
           </h2>
         </div>
 
-        <div className="px-6 space-y-4 bg-gray-50 text-left">
+        <div className="px-6 space-y-4 bg-transparent text-left">
           {/* Age */}
           <div>
             <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
@@ -65,7 +65,7 @@ export function ProfileDetailsScreen() {
               value={age}
               onChange={(e) => setAge(e.target.value)}
               placeholder="Enter your age"
-              className="w-full bg-white rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none"
+              className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none"
             />
           </div>
 
@@ -79,7 +79,7 @@ export function ProfileDetailsScreen() {
               value={height}
               onChange={(e) => setHeight(e.target.value)}
               placeholder="Enter your height"
-              className="w-full bg-white rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none"
+              className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none"
             />
           </div>
 
@@ -94,7 +94,7 @@ export function ProfileDetailsScreen() {
                 className={`py-4 rounded-2xl font-bold ${
                   gender === 'male'
                     ? 'bg-gradient-to-r from-purple-600 to-purple-400 text-white'
-                    : 'bg-white text-gray-600 shadow-sm'
+                    : 'bg-white/60 backdrop-blur-xl border border-white/50 text-gray-600 shadow-sm'
                 }`}
               >
                 Male
@@ -104,7 +104,7 @@ export function ProfileDetailsScreen() {
                 className={`py-4 rounded-2xl font-bold ${
                   gender === 'female'
                     ? 'bg-gradient-to-r from-purple-600 to-purple-400 text-white'
-                    : 'bg-white text-gray-600 shadow-sm'
+                    : 'bg-white/60 backdrop-blur-xl border border-white/50 text-gray-600 shadow-sm'
                 }`}
               >
                 Female
@@ -129,7 +129,7 @@ export function ProfileDetailsScreen() {
                   className={`w-full p-4 rounded-2xl text-left transition-all ${
                     experience === level.value
                       ? 'bg-purple-50 border-2 border-purple-600 shadow-sm'
-                      : 'bg-white border-2 border-transparent shadow-sm'
+                      : 'bg-white/60 backdrop-blur-xl border border-white/50 border-2 border-transparent shadow-sm'
                   }`}
                 >
                   <div className="font-bold">{level.label}</div>
@@ -147,7 +147,7 @@ export function ProfileDetailsScreen() {
             <select 
               value={frequency}
               onChange={(e) => setFrequency(e.target.value)}
-              className="w-full bg-white rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none shadow-sm"
+              className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none shadow-sm"
             >
               <option>Daily</option>
               <option>4-6 times per week</option>
@@ -165,7 +165,7 @@ export function ProfileDetailsScreen() {
             <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
               Preferred Practice Time
             </label>
-            <select className="w-full bg-white rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none shadow-sm">
+            <select className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none shadow-sm">
               <option>Morning (6am - 9am)</option>
               <option>Midday (10am - 2pm)</option>
               <option>Afternoon (3pm - 6pm)</option>
@@ -176,7 +176,7 @@ export function ProfileDetailsScreen() {
         </div>
 
         {/* Save Button */}
-        <div className="px-6 pt-8 pb-8 bg-gray-50">
+        <div className="px-6 pt-8 pb-8 bg-transparent">
           <button 
             className="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white py-4 rounded-full font-bold uppercase tracking-wider text-sm shadow-lg"
             onClick={handleSave}

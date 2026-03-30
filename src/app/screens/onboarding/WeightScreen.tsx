@@ -11,7 +11,7 @@ export function WeightScreen() {
 
   const handleNext = () => {
     updateUserData({ weight: weight.toString() });
-    navigate("/onboarding/goal");
+    navigate("/onboarding/diet");
   };
 
   const increment = () => setWeight(prev => Math.min(prev + 1, 200));
@@ -20,7 +20,7 @@ export function WeightScreen() {
   return (
     <OnboardingLayout 
       currentStep={4} 
-      totalSteps={9} 
+      totalSteps={10} 
       onNext={handleNext}
       canProceed={true}
     >

@@ -13,7 +13,7 @@ export function ProfileScreen() {
 
   return (
     <WebLayout>
-    <div className="bg-gray-50 pb-24 md:pb-0">
+    <div className="bg-transparent pb-24 md:pb-0">
       <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
       <StatusBar  />
 
@@ -33,7 +33,7 @@ export function ProfileScreen() {
       {/* Profile Card */}
       <div className="px-6 pb-6">
         <button 
-          className="w-full bg-white rounded-3xl p-5 shadow-sm flex items-center gap-4 active:scale-[0.98] transition-all"
+          className="w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-5 shadow-sm flex items-center gap-4 active:scale-[0.98] transition-all"
           onClick={() => navigate("/settings/edit-profile")}
         >
           <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-400 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
@@ -49,7 +49,7 @@ export function ProfileScreen() {
 
       {/* Stats */}
       <div className="px-6 pb-6">
-        <div className="bg-white rounded-3xl p-5 shadow-sm grid grid-cols-3 gap-6">
+        <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-5 shadow-sm grid grid-cols-3 gap-6">
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
               <Flame className="w-4 h-4 text-orange-500" />
@@ -82,9 +82,9 @@ export function ProfileScreen() {
       </div>
 
       <div className="px-6 pb-6">
-        <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+        <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
           <button 
-            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/edit-profile")}
           >
             <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -98,7 +98,7 @@ export function ProfileScreen() {
           </button>
 
           <button 
-            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/health-goals")}
           >
             <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -112,7 +112,7 @@ export function ProfileScreen() {
           </button>
 
           <button 
-            className="w-full p-5 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/profile-details")}
           >
             <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -135,9 +135,9 @@ export function ProfileScreen() {
       </div>
 
       <div className="px-6 pb-6">
-        <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+        <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
           <button 
-            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/notifications")}
           >
             <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -151,7 +151,7 @@ export function ProfileScreen() {
           </button>
 
           <button 
-            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/appearance")}
           >
             <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -165,7 +165,7 @@ export function ProfileScreen() {
           </button>
 
           <button 
-            className="w-full p-5 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/sounds-haptics")}
           >
             <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -188,9 +188,9 @@ export function ProfileScreen() {
       </div>
 
       <div className="px-6 pb-6 text-left">
-        <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+        <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
           <button 
-            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/security")}
           >
             <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -204,10 +204,10 @@ export function ProfileScreen() {
           </button>
 
           <button 
-            className="w-full p-5 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/data-management")}
           >
-            <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-transparent rounded-xl flex items-center justify-center flex-shrink-0">
               <Database className="w-5 h-5 text-gray-600" />
             </div>
             <div className="flex-1 text-left">
@@ -227,9 +227,9 @@ export function ProfileScreen() {
       </div>
 
       <div className="px-6 pb-6">
-        <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+        <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
           <button 
-            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/help-faq")}
           >
             <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -243,7 +243,7 @@ export function ProfileScreen() {
           </button>
 
           <button 
-            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 border-b border-gray-50 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/rate-app")}
           >
             <div className="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -257,10 +257,10 @@ export function ProfileScreen() {
           </button>
 
           <button 
-            className="w-full p-5 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+            className="w-full p-5 flex items-center gap-4 hover:bg-transparent transition-colors"
             onClick={() => navigate("/settings/about")}
           >
-            <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-transparent rounded-xl flex items-center justify-center flex-shrink-0">
               <Info className="w-5 h-5 text-gray-600" />
             </div>
             <div className="flex-1 text-left">
@@ -275,7 +275,7 @@ export function ProfileScreen() {
       {/* Dangerous Buttons */}
       <div className="px-6 pb-12 space-y-4">
         <button 
-          className="w-full bg-white text-gray-600 py-5 rounded-3xl font-black uppercase tracking-wider text-sm shadow-sm flex items-center justify-center gap-3 active:scale-95 transition-all border-2 border-transparent hover:border-gray-100"
+          className="w-full bg-white/60 backdrop-blur-xl border border-white/50 text-gray-600 py-5 rounded-3xl font-black uppercase tracking-wider text-sm shadow-sm flex items-center justify-center gap-3 active:scale-95 transition-all border-2 border-transparent hover:border-gray-100"
           onClick={() => navigate("/")}
         >
           <LogOut className="w-5 h-5" />

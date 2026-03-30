@@ -211,12 +211,12 @@ export function VideoPlayerScreen() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F7]">
-      <StatusBar  className="bg-white" />
+      <StatusBar  className="bg-white/60 backdrop-blur-xl border border-white/50" />
 
       {!isFullscreen ? (
         <>
           {/* Header */}
-          <div className="bg-white px-6 py-4 flex items-center justify-between">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 px-6 py-4 flex items-center justify-between">
             <button 
               onClick={() => navigate("/styles")}
               className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center"
@@ -233,7 +233,7 @@ export function VideoPlayerScreen() {
           </div>
 
           {/* Video Player */}
-          <div className="bg-white px-2 pt-2">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 px-2 pt-2">
             <div className="relative bg-black rounded-xl overflow-hidden" style={{ height: "240px" }}>
               <iframe
                 src={`https://drive.google.com/file/d/${driveId}/preview`}
@@ -257,7 +257,7 @@ export function VideoPlayerScreen() {
           </div>
 
           {/* Stats */}
-          <div className="bg-white px-6 py-6 flex items-center justify-between">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 px-6 py-6 flex items-center justify-between">
             <div>
               <p className="text-xs text-orange-500 font-bold uppercase mb-1 flex items-center gap-1">
                 🔥 Calories
@@ -279,7 +279,7 @@ export function VideoPlayerScreen() {
           </div>
 
           {/* Progress */}
-          <div className="bg-white px-6 pb-6">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 px-6 pb-6">
             <div className="flex items-center justify-between mb-2">
               <p className="text-xs text-purple-400 font-bold">0% COMPLETED</p>
               <p className="text-xs text-purple-400 font-bold">{details.duration}</p>
@@ -290,7 +290,7 @@ export function VideoPlayerScreen() {
           </div>
 
           {/* Class Details */}
-          <div className="bg-white px-6 pb-6 text-left">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 px-6 pb-6 text-left">
             <h2 className="text-sm font-black text-purple-600 uppercase tracking-wide mb-4">
               Class Details
             </h2>
@@ -311,7 +311,7 @@ export function VideoPlayerScreen() {
           </div>
 
           {/* Current Focus */}
-          <div className="bg-white px-6 pb-6">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 px-6 pb-6">
             <div className="bg-purple-50 rounded-2xl p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
@@ -329,7 +329,7 @@ export function VideoPlayerScreen() {
           </div>
 
           {/* Start Button */}
-          <div className="bg-white px-6 pb-8 flex items-center gap-4">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 px-6 pb-8 flex items-center gap-4">
             <button className="flex-1 bg-gradient-to-r from-purple-600 to-purple-500 text-white py-4 rounded-full font-black text-base uppercase tracking-wide flex items-center justify-center gap-2 shadow-lg">
               <Play className="w-5 h-5 fill-current" />
               Start Practice
@@ -380,7 +380,7 @@ export function VideoPlayerScreen() {
                   <span className="text-white text-xs mt-1">10</span>
                 </div>
               </button>
-              <button className="w-20 h-20 bg-white rounded-xl flex items-center justify-center">
+              <button className="w-20 h-20 bg-white/60 backdrop-blur-xl border border-white/50 rounded-xl flex items-center justify-center">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="black">
                   <rect x="8" y="6" width="4" height="20" rx="1"/>
                   <rect x="20" y="6" width="4" height="20" rx="1"/>
@@ -401,7 +401,7 @@ export function VideoPlayerScreen() {
               {/* Progress Bar */}
               <div className="mb-4">
                 <div className="w-full h-1 bg-white/30 rounded-full overflow-hidden">
-                  <div className="h-full w-0 bg-white rounded-full" />
+                  <div className="h-full w-0 bg-white/60 backdrop-blur-xl border border-white/50 rounded-full" />
                 </div>
               </div>
 

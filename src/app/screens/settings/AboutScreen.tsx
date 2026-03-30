@@ -11,12 +11,12 @@ export function AboutScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
         <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white">
+        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50">
           <button onClick={() => navigate("/profile")} className="p-2 -ml-2">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -31,7 +31,7 @@ export function AboutScreen() {
 
         {/* App Icon & Info */}
         <div className="px-6 pb-6 pt-6">
-          <div className="bg-white rounded-3xl p-8 shadow-sm text-center">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-8 shadow-sm text-center">
             <div className="w-24 h-24 bg-gradient-to-br from-purple-600 to-purple-400 rounded-[28px] flex items-center justify-center mx-auto mb-6 shadow-lg">
               <span className="text-5xl">🧘‍♀️</span>
             </div>
@@ -45,7 +45,7 @@ export function AboutScreen() {
         <div className="px-6 pb-6">
           <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-3xl p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl flex items-center justify-center shrink-0">
                 <Heart className="w-6 h-6 text-purple-600" />
               </div>
               <div className="flex-1">
@@ -60,7 +60,7 @@ export function AboutScreen() {
 
         {/* App Info */}
         <div className="px-6 pb-6">
-          <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
             <button className="w-full p-5 flex items-center gap-4 border-b border-gray-50 text-left">
               <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center shrink-0">
                 <FileText className="w-5 h-5 text-blue-600" />
@@ -104,7 +104,7 @@ export function AboutScreen() {
 
         {/* Credits */}
         <div className="px-6 pb-6">
-          <div className="bg-white rounded-3xl p-6 shadow-sm">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-6 shadow-sm">
             <h3 className="font-bold mb-4 text-left">Credits</h3>
             <div className="space-y-3 text-sm text-left">
               <div>

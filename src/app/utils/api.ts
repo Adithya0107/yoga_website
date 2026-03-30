@@ -1,5 +1,15 @@
 const API_BASE_URL = 'http://localhost:5001';
 
+async function parseResponse(response: Response) {
+  const text = await response.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    // Server returned non-JSON (e.g. HTML error page)
+    throw new Error('Server error. Please try again.');
+  }
+}
+
 export const api = {
   post: async (endpoint: string, data: any) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -9,9 +19,9 @@ export const api = {
       },
       body: JSON.stringify(data),
     });
-    const result = await response.json();
+    const result = await parseResponse(response);
     if (!response.ok) {
-      throw new Error(result.message || 'Something went wrong');
+      throw new Error(result.message || result.error || 'Something went wrong');
     }
     return result;
   },
@@ -23,9 +33,9 @@ export const api = {
         'Content-Type': 'application/json',
       },
     });
-    const result = await response.json();
+    const result = await parseResponse(response);
     if (!response.ok) {
-      throw new Error(result.message || 'Something went wrong');
+      throw new Error(result.message || result.error || 'Something went wrong');
     }
     return result;
   },
@@ -38,9 +48,9 @@ export const api = {
       },
       body: data ? JSON.stringify(data) : undefined,
     });
-    const result = await response.json();
+    const result = await parseResponse(response);
     if (!response.ok) {
-      throw new Error(result.message || 'Something went wrong');
+      throw new Error(result.message || result.error || 'Something went wrong');
     }
     return result;
   },

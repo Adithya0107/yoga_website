@@ -15,6 +15,7 @@ import { ExperienceScreen } from "./screens/onboarding/ExperienceScreen";
 import { FocusScreen } from "./screens/onboarding/FocusScreen";
 import { ActivityScreen } from "./screens/onboarding/ActivityScreen";
 import { FrequencyScreen } from "./screens/onboarding/FrequencyScreen";
+import { DietaryPreferenceScreen } from "./screens/onboarding/DietaryPreferenceScreen";
 import { CreatingPlanScreen } from "./screens/onboarding/CreatingPlanScreen";
 import { HomeScreen } from "./screens/HomeScreen";
 import { StylesScreen } from "./screens/StylesScreen";
@@ -100,6 +101,11 @@ export const router = createBrowserRouter([
   {
     path: "/onboarding/weight",
     Component: WeightScreen,
+    errorElement: <ErrorScreen />,
+  },
+  {
+    path: "/onboarding/diet",
+    Component: DietaryPreferenceScreen,
     errorElement: <ErrorScreen />,
   },
   {

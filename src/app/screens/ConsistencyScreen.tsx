@@ -1,161 +1,262 @@
-import { Flame, MoreVertical, Ruler } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronLeft, Loader2, X } from "lucide-react";
 import { useNavigate } from "react-router";
 import { WebLayout } from "../components/WebLayout";
+import { useUser } from "../context/UserContext";
+import { api } from "../utils/api";
+import { toast } from "sonner";
+
+// Helper to generate the next N months
+function getNextNMonths(startDate: Date, n: number) {
+  const months = [];
+  for (let i = 0; i < n; i++) {
+    const nextDate = new Date(startDate.getFullYear(), startDate.getMonth() + i, 1);
+    months.push(nextDate);
+  }
+  return months;
+}
+
+// Generate calendar cells for a given month and year
+function getDaysInMonth(year: number, month: number) {
+  const firstDay = new Date(year, month, 1).getDay(); // 0 (Sun) to 6 (Sat)
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const leadingEmptyDays = firstDay === 0 ? 6 : firstDay - 1; // Start on Mon (0)
+  
+  const cells = [];
+  for (let i = 0; i < leadingEmptyDays; i++) {
+    cells.push(null);
+  }
+  for (let i = 1; i <= daysInMonth; i++) {
+    cells.push(new Date(year, month, i));
+  }
+  return cells;
+}
+
+const statusColors: Record<string, string> = {
+  completed: "bg-emerald-500 text-white shadow-emerald-500/20 shadow-md",
+  half: "bg-emerald-300 text-white",
+  notdone: "bg-red-500 text-white",
+  rest: "bg-purple-500 text-white",
+  injury: "bg-white text-red-500 border-2 border-red-500",
+  current: "bg-gradient-to-br from-purple-500 to-cyan-500 text-white shadow-purple-500/20 shadow-md",
+  none: "bg-transparent text-gray-400 font-normal"
+};
+
+const statusOptions = [
+  { id: "completed", label: "completed yoga", dotClass: "bg-emerald-500" },
+  { id: "half", label: "haf day yoga", dotClass: "bg-emerald-300" },
+  { id: "notdone", label: "Notdone", dotClass: "bg-red-500" },
+  { id: "rest", label: "Restday", dotClass: "bg-purple-500" },
+  { id: "injury", label: "Injury", dotClass: "bg-red-500" }
+];
 
 export function ConsistencyScreen() {
   const navigate = useNavigate();
+  const { userData } = useUser();
+  const [activities, setActivities] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [detailStatus, setDetailStatus] = useState<string>("completed");
+  const [detailNotes, setDetailNotes] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
-  // Create 91 day grid
-  const days = Array.from({ length: 91 }, (_, i) => i);
+  const startCalDate = userData.startDate ? new Date(userData.startDate) : new Date();
+  const displayMonths = getNextNMonths(startCalDate, 6); // 6 months view
 
-  return (
-    <WebLayout>
-    <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
-      {/* Title */}
-      <div className="px-6 pt-6 pb-2">
-        <h2 className="text-xs font-bold text-gray-300 uppercase tracking-wider">
-          CONSISTENCY IS KEY
-        </h2>
-      </div>
+  useEffect(() => {
+    const fetchActivity = async () => {
+      if (!userData.id) {
+        setIsLoading(false);
+        return;
+      }
+      try {
+        const data = await api.get(`/user/get_activity/${userData.id}`);
+        if (data) setActivities(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchActivity();
+  }, [userData.id]);
 
-      {/* Consistency Card */}
-      <div className="px-6 pt-4 pb-6">
-        <div className="bg-white rounded-3xl p-6 shadow-sm">
-          <h1 className="text-2xl font-black mb-6">Consistency is Key!</h1>
+  const handleDayClick = (date: Date | null) => {
+    if (!date) return;
+    const dateStr = date.toISOString().split('T')[0];
+    const existing = activities.find(a => a.date === dateStr);
+    
+    setSelectedDate(date);
+    setDetailStatus(existing?.status || existing?.activity_type || "completed");
+    setDetailNotes(existing?.notes || "");
+  };
 
-          {/* Date Range */}
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">START DATE</div>
-              <div className="text-lg font-bold text-purple-600">8 Dec 2025</div>
-            </div>
-            <div className="text-right">
-              <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">END DATE</div>
-              <div className="text-lg font-bold text-purple-600">8 Mar 2026</div>
-            </div>
+  const handleSaveStatus = async () => {
+    if (!selectedDate || !userData.id) return;
+    setIsSaving(true);
+    const dateStr = selectedDate.toISOString().split('T')[0];
+    
+    try {
+      await api.post('/user/add_progress', {
+        user_id: userData.id,
+        progress: {
+          date: dateStr,
+          status: detailStatus,
+          notes: detailNotes
+        }
+      });
+      toast.success("Status saved");
+      
+      // Update local state to reflect change immediately
+      setActivities(prev => {
+        const filtered = prev.filter(a => a.date !== dateStr);
+        return [...filtered, { date: dateStr, status: detailStatus, notes: detailNotes }];
+      });
+      setSelectedDate(null);
+    } catch (err: any) {
+      toast.error(err.message || "Failed to save status");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <WebLayout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Loader2 className="w-10 h-10 animate-spin text-purple-600" />
+        </div>
+      </WebLayout>
+    );
+  }
+
+  // Details View Drawer / Screen Overlay
+  if (selectedDate) {
+    return (
+      <WebLayout>
+        <div className="min-h-screen bg-transparent pb-24 md:pb-0 px-6 pt-10">
+          <div className="flex items-center justify-between mb-8">
+            <button 
+              onClick={() => setSelectedDate(null)}
+              className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-800"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
           </div>
 
-          {/* Calendar Grid */}
-          <div className="grid grid-cols-13 gap-1.5 mb-4">
-            {days.map((day) => (
-              <div 
-                key={day} 
-                className="aspect-square bg-gray-100 rounded"
-              />
+          <h2 className="text-2xl font-black text-center mb-8">
+            {selectedDate.getDate()} {selectedDate.toLocaleDateString("en-US", { month: "long" })} {selectedDate.getFullYear()}
+          </h2>
+
+          <div className="space-y-4 mb-8">
+            {statusOptions.map((opt) => (
+              <button
+                key={opt.id}
+                onClick={() => setDetailStatus(opt.id)}
+                className={`w-full text-left bg-white/70 backdrop-blur-md rounded-2xl p-4 flex items-center gap-4 transition-all border shadow-sm ${detailStatus === opt.id ? 'border-purple-500 outline outline-2 outline-purple-100' : 'border-white'}`}
+              >
+                <div className={`w-3.5 h-3.5 rounded-full ${opt.dotClass}`} />
+                <span className="font-bold text-gray-800 text-sm">{opt.label}</span>
+              </button>
             ))}
           </div>
 
-          {/* Progress */}
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500">0 / 91 Days Completed</span>
-            <div className="flex items-center gap-2">
-              <Flame className="w-5 h-5 text-orange-500" />
-              <span className="text-sm font-bold text-orange-500">Keep going!</span>
-            </div>
+          <div className="mb-8">
+            <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1 mb-2 block">
+              LEVEL NOTES
+            </label>
+            <input 
+              type="text"
+              value={detailNotes}
+              onChange={(e) => setDetailNotes(e.target.value)}
+              placeholder="Add a note about today..."
+              className="w-full bg-white/50 backdrop-blur-md border border-white/80 rounded-2xl p-4 placeholder:text-gray-400 text-gray-800 font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all"
+            />
           </div>
+
+          <button
+            onClick={handleSaveStatus}
+            disabled={isSaving}
+            className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white py-4 rounded-2xl font-bold text-base shadow-lg shadow-purple-500/30 flex items-center justify-center transition-colors mb-20 md:mb-0"
+          >
+            {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : "Save Status"}
+          </button>
+        </div>
+      </WebLayout>
+    );
+  }
+
+  // Calendar List View
+  return (
+    <WebLayout>
+      <div className="min-h-screen bg-transparent pb-28 md:pb-0 px-6 pt-10">
+        
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8 relative">
+          <button 
+            onClick={() => navigate(-1)}
+            className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-800 z-10"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          
+          <h1 className="text-[22px] font-black text-[#7C3AED] absolute w-full text-center pointer-events-none tracking-tight">
+            Your Activity
+          </h1>
+        </div>
+
+        {/* Months */}
+        <div className="space-y-10">
+          {displayMonths.map((monthDate, i) => {
+             const year = monthDate.getFullYear();
+             const month = monthDate.getMonth();
+             const days = getDaysInMonth(year, month);
+             
+             return (
+               <div key={i}>
+                 <h2 className="text-xl font-black text-gray-900 mb-6">
+                   {monthDate.toLocaleDateString("en-US", { month: "long" })} {year}
+                 </h2>
+                 
+                 <div className="grid grid-cols-7 gap-y-4 gap-x-2">
+                   {days.map((dateObj, idx) => {
+                     if (!dateObj) return <div key={`empty-${idx}`} />;
+                     
+                     const dateStr = dateObj.toISOString().split('T')[0];
+                     const todayStr = new Date().toISOString().split('T')[0];
+                     
+                     // Find if user has activity submitted for this date
+                     const userActivity = activities.find(a => a.date === dateStr);
+                     
+                     // Determine UI color Class
+                     let stateClass = "bg-transparent text-gray-400 font-medium";
+                     if (userActivity?.status) {
+                       stateClass = statusColors[userActivity.status] || statusColors.completed;
+                     } else if (userActivity) {
+                       // Fallback if existing data lacks standard status (e.g. from /add_progress without exact match)
+                       stateClass = statusColors.completed;
+                     } else if (dateStr === todayStr) {
+                       stateClass = statusColors.current;
+                     }
+
+                     return (
+                       <div key={idx} className="flex justify-center">
+                         <button
+                           onClick={() => handleDayClick(dateObj)}
+                           className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-sm transition-all hover:scale-110 focus:outline-none ${stateClass}`}
+                         >
+                           {dateObj.getDate()}
+                         </button>
+                       </div>
+                     );
+                   })}
+                 </div>
+               </div>
+             );
+          })}
         </div>
       </div>
-
-      {/* 15 Days Performance */}
-      <div className="px-6 pb-6">
-        <h2 className="text-xs font-bold text-gray-300 uppercase tracking-wider mb-4">
-          15 DAYS PERFORMANCE
-        </h2>
-
-        <div className="bg-white rounded-3xl p-6 shadow-sm">
-          {/* Stats Grid */}
-          <div className="grid grid-cols-3 gap-6 mb-6">
-            {/* Age */}
-            <div className="text-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-2xl">👤</span>
-              </div>
-              <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">AGE</div>
-              <div className="flex items-center justify-center gap-2">
-                <MoreVertical className="w-4 h-4 text-gray-400" />
-                <span className="text-sm font-bold">YRS</span>
-              </div>
-            </div>
-
-            {/* Weight */}
-            <div className="text-center">
-              <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                <span className="text-2xl">⚖️</span>
-              </div>
-              <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">WEIGHT</div>
-              <div className="text-2xl font-bold">76 <span className="text-sm">KG</span></div>
-            </div>
-
-            {/* Height */}
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                <Ruler className="w-6 h-6 text-blue-600" />
-              </div>
-              <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">HEIGHT</div>
-              <div className="flex items-center justify-center gap-2">
-                <MoreVertical className="w-4 h-4 text-gray-400" />
-                <span className="text-sm font-bold">CM</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Health Status */}
-          <div className="border-t border-gray-100 pt-6">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <div className="text-xs text-gray-400 uppercase tracking-wide mb-2">
-                  HEALTH STATUS
-                </div>
-                <h3 className="text-2xl font-bold text-purple-600">Underweight</h3>
-              </div>
-              {/* Progress Circle */}
-              <div className="relative w-16 h-16">
-                <svg className="w-16 h-16 transform -rotate-90">
-                  <circle
-                    cx="32"
-                    cy="32"
-                    r="28"
-                    stroke="#E5E7EB"
-                    strokeWidth="6"
-                    fill="none"
-                  />
-                  <circle
-                    cx="32"
-                    cy="32"
-                    r="28"
-                    stroke="url(#gradient)"
-                    strokeWidth="6"
-                    fill="none"
-                    strokeDasharray="175.93"
-                    strokeDashoffset="70.37"
-                    strokeLinecap="round"
-                  />
-                  <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#7C3AED" />
-                      <stop offset="100%" stopColor="#06B6D4" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-sm font-bold">60%</span>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-sm text-gray-600 leading-relaxed mb-6">
-              Based on your BMI of 2.4 and 0 day consistency, your flexibility is excellent. Your recovery rate is 60% optimal.
-            </p>
-
-            <button className="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white py-4 rounded-full font-bold uppercase tracking-wider text-sm shadow-lg">
-              View Full Analysis
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom navigation removed (not used) */}
-    </div>
     </WebLayout>
   );
 }

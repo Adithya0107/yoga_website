@@ -6,7 +6,7 @@ export function NotFoundScreen() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 py-12 flex flex-col items-center justify-center text-center">
+    <div className="min-h-screen bg-transparent px-6 py-12 flex flex-col items-center justify-center text-center">
       <StatusBar  className="absolute top-0 left-0 right-0" />
       
       <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mb-8">

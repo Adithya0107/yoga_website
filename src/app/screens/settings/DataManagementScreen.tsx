@@ -11,12 +11,12 @@ export function DataManagementScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
         <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white shrink-0">
+        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50 shrink-0">
           <button onClick={() => navigate("/profile")} className="p-2 -ml-2">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -31,7 +31,7 @@ export function DataManagementScreen() {
 
         {/* Storage Info */}
         <div className="px-6 pb-6 pt-6">
-          <div className="bg-white rounded-3xl p-6 shadow-sm">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-6 shadow-sm">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center shrink-0">
                 <HardDrive className="w-6 h-6 text-purple-600" />
@@ -42,7 +42,7 @@ export function DataManagementScreen() {
               </div>
               <span className="text-2xl font-bold text-purple-600">24 MB</span>
             </div>
-            <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-transparent rounded-full overflow-hidden">
               <div className="h-full w-1/4 bg-gradient-to-r from-purple-600 to-purple-400 font-bold"></div>
             </div>
             <div className="flex justify-between mt-2 text-xs text-gray-400">
@@ -60,7 +60,7 @@ export function DataManagementScreen() {
         </div>
 
         <div className="px-6 pb-6">
-          <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
             <button className="w-full p-5 flex items-center gap-4 border-b border-gray-50 text-left">
               <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center shrink-0">
                 <Download className="w-5 h-5 text-blue-600" />
@@ -93,7 +93,7 @@ export function DataManagementScreen() {
         </div>
 
         <div className="px-6 pb-6">
-          <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
             <button className="w-full p-5 flex items-center gap-4 border-b border-gray-50 text-left transition-colors hover:bg-red-50">
               <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
                 <Trash2 className="w-5 h-5 text-orange-600" />

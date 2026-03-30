@@ -47,12 +47,12 @@ export function HelpFAQScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
         <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white">
+        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50">
           <button onClick={() => navigate("/profile")} className="p-2 -ml-2">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -96,7 +96,7 @@ export function HelpFAQScreen() {
 
         <div className="px-6 pb-8 space-y-3">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-3xl shadow-sm overflow-hidden">
+            <div key={index} className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-sm overflow-hidden">
               <button
                 onClick={() => setOpenFaq(openFaq === index ? null : index)}
                 className="w-full p-5 flex items-start justify-between gap-4 text-left"

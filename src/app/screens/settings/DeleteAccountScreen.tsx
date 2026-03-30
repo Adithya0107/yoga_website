@@ -22,11 +22,11 @@ export function DeleteAccountScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white shrink-0">
+        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50 shrink-0">
           <button onClick={() => navigate("/settings/data-management")} className="p-2 -ml-2">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -35,7 +35,7 @@ export function DeleteAccountScreen() {
 
         {confirmStep === 0 && (
           <div className="px-6 py-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-white rounded-[40px] p-8 shadow-sm text-center">
+            <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-[40px] p-8 shadow-sm text-center">
               <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse">
                 <AlertTriangle className="w-12 h-12 text-red-600" />
               </div>
@@ -83,7 +83,7 @@ export function DeleteAccountScreen() {
 
         {confirmStep === 1 && (
           <div className="px-6 py-8 animate-in zoom-in-95 duration-500">
-            <div className="bg-white rounded-[40px] p-8 shadow-sm text-center">
+            <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-[40px] p-8 shadow-sm text-center">
               <div className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
                 <Trash2 className="w-12 h-12 text-white" />
               </div>

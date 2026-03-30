@@ -61,7 +61,8 @@ export function CreatingPlanScreen() {
               activityLevel: userData.activity,
               experience: userData.experience,
               focusArea: userData.focus,
-              frequency: userData.frequency
+              frequency: userData.frequency,
+              dietaryPreference: userData.dietaryPreference
             }
           });
           
@@ -85,14 +86,14 @@ export function CreatingPlanScreen() {
   }, [navigate, dynamicSteps.length, userData]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col px-6 py-12">
+    <div className="min-h-screen bg-white/60 backdrop-blur-xl border border-white/50 flex flex-col px-6 py-12">
       <StatusBar  className="absolute top-0 left-0 right-0" />
 
       {/* Back Button */}
       <div className="mb-12">
         <button 
           onClick={() => navigate(-1)}
-          className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-100"
+          className="w-12 h-12 bg-white/60 backdrop-blur-xl border border-white/50 rounded-full flex items-center justify-center shadow-md border border-gray-100"
         >
           <ArrowLeft className="w-6 h-6 text-gray-700" />
         </button>
@@ -106,7 +107,7 @@ export function CreatingPlanScreen() {
             <div className="w-64 h-64 rounded-full bg-purple-100 opacity-20"></div>
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-48 h-48 rounded-full bg-white"></div>
+            <div className="w-48 h-48 rounded-full bg-white/60 backdrop-blur-xl border border-white/50"></div>
           </div>
           <div className="relative flex items-center justify-center w-64 h-64">
             <div className="w-32 h-32 rounded-3xl bg-gradient-to-br from-purple-600 to-cyan-400 flex items-center justify-center p-6 shadow-xl">
@@ -127,7 +128,7 @@ export function CreatingPlanScreen() {
 
         {/* Progress Bar */}
         <div className="w-full max-w-xs mb-12">
-          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-2 bg-transparent rounded-full overflow-hidden">
             <div 
               className="h-full bg-gradient-to-r from-purple-600 to-cyan-400 transition-all duration-300"
               style={{ width: `${progress}%` }}

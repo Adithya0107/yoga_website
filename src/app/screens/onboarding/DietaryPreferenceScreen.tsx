@@ -4,44 +4,44 @@ import { OnboardingLayout } from "../../components/OnboardingLayout";
 import { OptionButton } from "../../components/OptionButton";
 import { useUser } from "../../context/UserContext";
 
-export function AgeScreen() {
+export function DietaryPreferenceScreen() {
   const navigate = useNavigate();
   const { userData, updateUserData } = useUser();
-  const [selectedAge, setSelectedAge] = useState<string>(userData.age || "");
+  const [selectedPreference, setSelectedPreference] = useState<string>(userData.dietaryPreference || "");
 
-  const ageRanges = [
-    "18-24", "25-34",
-    "35-44", "45-54",
-    "55-64", "65+"
+  const preferences = [
+    "Vegetarian",
+    "Non-Vegetarian",
+    "Both"
   ];
 
   const handleNext = () => {
-    if (selectedAge) {
-      updateUserData({ age: selectedAge });
-      navigate("/onboarding/gender");
+    if (selectedPreference) {
+      updateUserData({ dietaryPreference: selectedPreference });
+      navigate("/onboarding/goal");
     }
   };
 
   return (
     <OnboardingLayout 
-      currentStep={1} 
+      currentStep={5} 
       totalSteps={10} 
       onNext={handleNext}
-      canProceed={!!selectedAge}
+      canProceed={!!selectedPreference}
     >
       <div className="flex-1 flex flex-col">
         <h1 className="text-5xl mb-12 leading-tight text-purple-600 font-black">
-          How old are you?
+          Dietary preference?
         </h1>
 
         <div className="grid grid-cols-2 gap-4">
-          {ageRanges.map((range) => (
+          {preferences.map((pref) => (
             <OptionButton
-              key={range}
-              selected={selectedAge === range}
-              onClick={() => setSelectedAge(range)}
+              key={pref}
+              selected={selectedPreference === pref}
+              onClick={() => setSelectedPreference(pref)}
             >
-              {range}
+              {pref}
             </OptionButton>
           ))}
         </div>

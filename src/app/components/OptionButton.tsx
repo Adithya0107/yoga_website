@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface OptionButtonProps {
   children: ReactNode;
@@ -8,15 +9,17 @@ interface OptionButtonProps {
 
 export function OptionButton({ children, selected, onClick }: OptionButtonProps) {
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className={`py-5 px-8 rounded-full text-lg font-bold transition-all ${
+      className={`w-full py-5 px-8 rounded-[24px] text-lg font-bold transition-all duration-300 border-2 ${
         selected 
-          ? 'bg-gradient-to-r from-purple-600 to-purple-600 text-white shadow-lg' 
-          : 'bg-gray-50 text-gray-500 shadow-sm hover:shadow-md'
+          ? 'bg-purple-500/10 border-purple-500 text-purple-700 shadow-[0_0_20px_rgba(168,85,247,0.15)] backdrop-blur-md' 
+          : 'bg-white/60 border-transparent text-gray-700 shadow-sm hover:shadow-md hover:bg-white/80 backdrop-blur-sm'
       }`}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }

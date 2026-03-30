@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Sparkles, ChevronLeft } from "lucide-react";
+import { Send, Sparkles, ChevronLeft, Play } from "lucide-react";
 import { useNavigate } from "react-router";
 import { WebLayout } from "../components/WebLayout";
 
@@ -228,9 +228,9 @@ export function AICoachScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0 flex flex-col">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0 flex flex-col">
       {/* Header */}
-      <div className="px-6 pt-6 pb-6 bg-white">
+      <div className="px-6 pt-6 pb-6 bg-white/60 backdrop-blur-xl border border-white/50">
         <div className="flex items-center gap-4">
           {/* Back Button */}
           <button 
@@ -268,10 +268,25 @@ export function AICoachScreen() {
               </div>
             )}
             <div className={`flex-1 ${msg.role === "user" ? "flex justify-end" : ""}`}>
-              <div className={`${msg.role === "assistant" ? "bg-white rounded-3xl rounded-tl-lg" : "bg-gradient-to-br from-purple-600 to-purple-400 rounded-3xl rounded-tr-lg"} p-5 shadow-md max-w-[85%]`}>
+              <div className={`${msg.role === "assistant" ? "bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl rounded-tl-lg" : "bg-gradient-to-br from-purple-600 to-purple-400 rounded-3xl rounded-tr-lg"} p-5 shadow-md max-w-[85%]`}>
                 <p className={`text-base leading-relaxed whitespace-pre-line ${msg.role === "assistant" ? "text-gray-800" : "text-white"}`}>
                   {msg.content}
                 </p>
+                {msg.role === "assistant" && (msg.content.includes("min") || msg.content.includes("Sequence") || msg.content.includes("Program") || msg.content.includes("Routine")) && (
+                  <div className="mt-4 pt-4 border-t border-purple-200/50 flex justify-end">
+                    <button 
+                      onClick={() => navigate("/styles")}
+                      className="flex flex-row items-center justify-between px-3 h-10 rounded-full bg-gradient-to-br from-purple-600 to-purple-400 text-white shadow-md active:scale-95 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-white/30 group"
+                    >
+                      <span className="text-xs font-bold tracking-[1px] uppercase">
+                        Start Now
+                      </span>
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center ml-2 bg-white/20 backdrop-blur-md shadow-inner group-hover:scale-105 transition-transform">
+                        <Play className="h-2.5 w-2.5 fill-white text-white ml-0.5" />
+                      </div>
+                    </button>
+                  </div>
+                )}
               </div>
               <span className={`text-xs text-gray-400 mt-2 inline-block px-3 ${msg.role === "user" ? "text-right" : ""}`}>
                 {formatTime(msg.timestamp)}
@@ -292,7 +307,7 @@ export function AICoachScreen() {
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <div className="flex-1">
-              <div className="bg-white rounded-3xl rounded-tl-lg p-5 shadow-md">
+              <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl rounded-tl-lg p-5 shadow-md">
                 <div className="flex gap-2">
                   <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
@@ -313,7 +328,7 @@ export function AICoachScreen() {
               key={index}
               onClick={() => handleQuickAction(action.message)}
               disabled={isLoading}
-              className="flex flex-col items-center gap-2 bg-white rounded-2xl p-4 shadow-md min-w-[100px] h-20 justify-center hover:shadow-lg transition-shadow disabled:opacity-50"
+              className="flex flex-col items-center gap-2 bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl p-4 shadow-md min-w-[100px] h-20 justify-center hover:shadow-lg transition-shadow disabled:opacity-50"
             >
               <span className="text-2xl">{action.icon}</span>
               <span className="text-xs font-bold uppercase tracking-wide text-center whitespace-pre-line leading-tight">
@@ -334,7 +349,7 @@ export function AICoachScreen() {
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             disabled={isLoading}
-            className="flex-1 bg-white rounded-full px-6 py-4 text-base placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-600 disabled:opacity-50"
+            className="flex-1 bg-white/60 backdrop-blur-xl border border-white/50 rounded-full px-6 py-4 text-base placeholder-gray-400 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-600 disabled:opacity-50"
           />
           <button 
             onClick={handleSendMessage}

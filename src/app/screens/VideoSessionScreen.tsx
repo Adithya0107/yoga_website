@@ -270,7 +270,7 @@ const sessionDatabase: { [key: string]: SessionData } = {
 export function VideoSessionScreen() {
   const navigate = useNavigate();
   const { sessionId } = useParams<{ sessionId: string }>();
-  const { userData } = useUser();
+  const { userData, updateUserData } = useUser();
   
   // Get session data
   const session = sessionDatabase[sessionId || "morning-weight-loss"] || sessionDatabase["morning-weight-loss"];
@@ -346,6 +346,13 @@ export function VideoSessionScreen() {
         }
       };
       saveSessionToBackend();
+      
+      // Update local user context for immediate UI feedback
+      const sessionMinutes = Math.floor(elapsedSeconds / 60);
+      updateUserData({
+        minutes: (userData.minutes || 0) + sessionMinutes,
+        calories: (userData.calories || 0) + caloriesBurned
+      });
 
       const sessionData = {
         sessionId: session.id,
@@ -415,7 +422,7 @@ export function VideoSessionScreen() {
     <WebLayout>
       <div className="flex-1 bg-[#F5F5F7] flex flex-col overflow-y-auto h-[calc(100vh-64px)] md:h-screen no-scrollbar">
         {/* Header */}
-        <div className="px-6 pt-6 pb-6 bg-white sticky top-0 z-20 border-b border-gray-100">
+        <div className="px-6 pt-6 pb-6 bg-white/60 backdrop-blur-xl border border-white/50 sticky top-0 z-20 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <button 
               onClick={() => navigate(-1)}
@@ -436,7 +443,7 @@ export function VideoSessionScreen() {
         </div>
 
         {/* Video Player Section */}
-        <div className="bg-white px-2 pt-2 pb-6">
+        <div className="bg-white/60 backdrop-blur-xl border border-white/50 px-2 pt-2 pb-6">
           <div 
             ref={videoContainerRef}
             className="relative bg-black rounded-[40px] overflow-hidden shadow-2xl group transition-all duration-500"
@@ -490,7 +497,7 @@ export function VideoSessionScreen() {
                     </button>
                     <button
                       onClick={handleStartStop}
-                      className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-xl active:scale-95 transition-all"
+                      className="w-16 h-16 bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl flex items-center justify-center shadow-xl active:scale-95 transition-all"
                     >
                       {isPlaying ? (
                         <Pause className="w-8 h-8 text-purple-600 fill-current" />
@@ -535,7 +542,7 @@ export function VideoSessionScreen() {
         </div>
 
         {/* Action Area */}
-        <div className="bg-white flex-1 rounded-t-[48px] shadow-[0_-30px_60px_rgba(0,0,0,0.05)] -mt-10 relative z-10 p-10">
+        <div className="bg-white/60 backdrop-blur-xl border border-white/50 flex-1 rounded-t-[48px] shadow-[0_-30px_60px_rgba(0,0,0,0.05)] -mt-10 relative z-10 p-10">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-3 gap-8 mb-12">
               <div className="text-left bg-orange-50/50 p-6 rounded-[32px] border border-orange-100/50">
@@ -568,7 +575,7 @@ export function VideoSessionScreen() {
                     <span className="text-xs font-bold text-purple-400">%</span>
                   </div>
                 </div>
-                <div className="h-6 bg-gray-50 rounded-full overflow-hidden border border-gray-100 p-1">
+                <div className="h-6 bg-transparent rounded-full overflow-hidden border border-gray-100 p-1">
                   <div 
                     className="h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full transition-all duration-700 shadow-md relative"
                     style={{ width: `${progress}%` }}
@@ -581,11 +588,11 @@ export function VideoSessionScreen() {
               {/* Details & Posture */}
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <div className="bg-gray-50 rounded-[32px] p-6 text-left border border-gray-100 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300">
+                  <div className="bg-transparent rounded-[32px] p-6 text-left border border-gray-100 hover:bg-white/60 backdrop-blur-xl border border-white/50 hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300">
                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Primary Benefit</p>
                     <p className="text-lg font-black text-gray-800 leading-tight">{session.benefits}</p>
                   </div>
-                  <div className="bg-gray-50 rounded-[32px] p-6 text-left border border-gray-100 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300">
+                  <div className="bg-transparent rounded-[32px] p-6 text-left border border-gray-100 hover:bg-white/60 backdrop-blur-xl border border-white/50 hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300">
                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Core Focus</p>
                     <p className="text-lg font-black text-gray-800 leading-tight">{session.focus}</p>
                   </div>
@@ -621,7 +628,7 @@ export function VideoSessionScreen() {
                   onClick={handleStartStop}
                   className={`flex-1 rounded-[32px] py-6 font-black uppercase tracking-widest text-sm shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-3 ${
                     isPlaying 
-                    ? "bg-white text-gray-900 border-2 border-gray-100" 
+                    ? "bg-white/60 backdrop-blur-xl border border-white/50 text-gray-900 border-2 border-gray-100" 
                     : "bg-gray-900 text-white shadow-gray-900/20"
                   }`}
                 >
@@ -654,7 +661,7 @@ export function VideoSessionScreen() {
         {/* Completion Modal */}
         {isCompleted && (
           <div className="fixed inset-0 bg-black/60 backdrop-blur-xl flex items-center justify-center z-[100] px-6">
-            <div className="bg-white rounded-[56px] p-12 w-full max-w-md text-center shadow-2xl animate-in zoom-in-95 duration-500 relative overflow-hidden">
+            <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-[56px] p-12 w-full max-w-md text-center shadow-2xl animate-in zoom-in-95 duration-500 relative overflow-hidden">
               <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500" />
               
               <div className="w-28 h-28 bg-purple-50 rounded-[40px] flex items-center justify-center mx-auto mb-8 shadow-inner">
@@ -664,11 +671,11 @@ export function VideoSessionScreen() {
               <p className="text-gray-400 font-bold mb-10">You've reached your daily goal. Your body thanks you.</p>
               
               <div className="grid grid-cols-2 gap-4 mb-10">
-                <div className="bg-gray-50/50 rounded-[32px] p-6 border border-gray-100">
+                <div className="bg-transparent/50 rounded-[32px] p-6 border border-gray-100">
                   <p className="text-3xl font-black text-purple-600">{session.duration}m</p>
                   <p className="text-[10px] font-black text-gray-400 uppercase tracking-wider mt-1">Duration</p>
                 </div>
-                <div className="bg-gray-50/50 rounded-[32px] p-6 border border-gray-100">
+                <div className="bg-transparent/50 rounded-[32px] p-6 border border-gray-100">
                   <p className="text-3xl font-black text-orange-500">{caloriesBurned}</p>
                   <p className="text-[10px] font-black text-gray-400 uppercase tracking-wider mt-1">Kcal Burned</p>
                 </div>

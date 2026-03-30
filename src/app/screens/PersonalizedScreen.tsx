@@ -39,13 +39,13 @@ export function PersonalizedScreen() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 py-12">
+    <div className="min-h-screen bg-transparent px-6 py-12">
       <StatusBar  className="absolute top-0 left-0 right-0" />
 
       {/* Back Button */}
       <button 
         onClick={() => navigate(-1)}
-        className="mb-8 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm"
+        className="mb-8 w-12 h-12 bg-white/60 backdrop-blur-xl border border-white/50 rounded-full flex items-center justify-center shadow-sm"
       >
         <ArrowLeft className="w-6 h-6 text-gray-700" />
       </button>
@@ -61,7 +61,7 @@ export function PersonalizedScreen() {
       {/* Features List */}
       <div className="space-y-4 mb-8">
         {features.map((feature, index) => (
-          <div key={index} className="bg-white rounded-3xl p-6 shadow-sm relative">
+          <div key={index} className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-6 shadow-sm relative">
             <div className="flex items-start gap-4">
               <div className={`${feature.iconBg} ${feature.iconColor} w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0`}>
                 {feature.icon}

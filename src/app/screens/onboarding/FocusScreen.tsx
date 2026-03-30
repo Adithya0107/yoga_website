@@ -25,8 +25,8 @@ export function FocusScreen() {
 
   return (
     <OnboardingLayout 
-      currentStep={8} 
-      totalSteps={9} 
+      currentStep={9} 
+      totalSteps={10} 
       onNext={handleNext}
       canProceed={!!selectedFocus}
     >

@@ -24,8 +24,8 @@ export function ExperienceScreen() {
 
   return (
     <OnboardingLayout 
-      currentStep={7} 
-      totalSteps={9} 
+      currentStep={8} 
+      totalSteps={10} 
       onNext={handleNext}
       canProceed={!!selectedExperience}
     >

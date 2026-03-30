@@ -100,7 +100,7 @@ export function SignInScreen() {
               <InputField
                 label="Email Address"
                 type="email"
-                placeholder="name@example.com"
+                placeholder="Email Address"
                 icon={<Mail className="w-5 h-5 text-purple-400" />}
                 value={email}
                 onChange={setEmail}
@@ -109,7 +109,7 @@ export function SignInScreen() {
               <InputField
                 label="Password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="Password"
                 icon={<Lock className="w-5 h-5 text-purple-400" />}
                 value={password}
                 onChange={setPassword}

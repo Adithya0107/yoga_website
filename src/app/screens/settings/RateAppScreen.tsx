@@ -13,12 +13,12 @@ export function RateAppScreen() {
 
   return (
     <WebLayout>
-      <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+      <div className="min-h-screen bg-transparent pb-24 md:pb-0">
         <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
         <StatusBar  />
 
         {/* Header */}
-        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white">
+        <div className="flex items-center gap-4 px-6 pt-4 pb-6 bg-white/60 backdrop-blur-xl border border-white/50">
           <button onClick={() => navigate("/profile")} className="p-2 -ml-2">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -33,7 +33,7 @@ export function RateAppScreen() {
 
         {/* Rating Card */}
         <div className="px-6 pb-6 pt-6">
-          <div className="bg-white rounded-3xl p-8 shadow-sm text-center">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-8 shadow-sm text-center">
             <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-6">
               <Heart className="w-10 h-10 text-white" fill="white" />
             </div>
@@ -71,14 +71,14 @@ export function RateAppScreen() {
         {/* Feedback Section */}
         {rating > 0 && (
           <div className="px-6 pb-6">
-            <div className="bg-white rounded-3xl p-6 shadow-sm">
+            <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-6 shadow-sm">
               <h3 className="font-bold mb-4">Tell us more (optional)</h3>
               <textarea
                 value={feedback}
                 onChange={(e) => setFeedback(e.target.value)}
                 placeholder="What do you love? What could be better?"
                 rows={5}
-                className="w-full bg-gray-50 rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none resize-none"
+                className="w-full bg-transparent rounded-2xl px-5 py-4 text-base border-2 border-transparent focus:border-purple-600 outline-none resize-none"
               />
             </div>
           </div>
@@ -87,7 +87,7 @@ export function RateAppScreen() {
         {/* Quick Feedback Options */}
         {rating > 0 && rating < 5 && (
           <div className="px-6 pb-6">
-            <div className="bg-white rounded-3xl p-6 shadow-sm">
+            <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-6 shadow-sm">
               <h3 className="font-bold mb-4">What can we improve?</h3>
               <div className="space-y-2">
                 {[
@@ -98,7 +98,7 @@ export function RateAppScreen() {
                   'Music selection',
                   'App performance'
                 ].map((option, index) => (
-                  <label key={index} className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 cursor-pointer">
+                  <label key={index} className="flex items-center gap-3 p-3 rounded-xl hover:bg-transparent cursor-pointer">
                     <input
                       type="checkbox"
                       className="w-5 h-5 rounded border-2 border-gray-300 text-purple-600 focus:ring-purple-600"

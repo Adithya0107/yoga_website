@@ -157,7 +157,7 @@ export function StylesScreen() {
 
   return (
     <WebLayout>
-      <div className="bg-gray-50 pb-24 md:pb-0">
+      <div className="bg-transparent pb-24 md:pb-0">
         {/* Header */}
         <div className="px-6 pt-6 pb-6 text-left">
           <h1 className="text-4xl font-black bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent">
@@ -176,14 +176,14 @@ export function StylesScreen() {
                 {level.programs.map((program, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-80 rounded-[32px] overflow-hidden shadow-sm snap-start bg-white group hover:shadow-xl transition-all duration-500"
+                    className="flex-shrink-0 w-80 rounded-[32px] overflow-hidden shadow-sm snap-start bg-white/60 backdrop-blur-xl border border-white/50 group hover:shadow-xl transition-all duration-500"
                   >
                     <div className="flex h-44">
                       <div
                         className={`flex-[1.2] bg-gradient-to-br ${program.color} p-7 flex flex-col justify-between relative`}
                       >
                         <div className="relative z-10">
-                          <h3 className="text-2xl font-black text-white leading-tight mb-2">
+                          <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-1 line-clamp-2">
                             {program.title}
                           </h3>
                         </div>
@@ -191,11 +191,11 @@ export function StylesScreen() {
                         <div className="relative z-10">
                           <button 
                             onClick={() => navigate(`/video-session/${program.id}`)}
-                            className="bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-gray-900 px-5 py-3 rounded-2xl flex items-center gap-3 transition-all duration-300 group/play shadow-xl active:scale-95"
+                            className="bg-white/10 backdrop-blur-md hover:bg-white/30 border border-white/40 text-white px-3 py-1.5 rounded-2xl flex items-center gap-2 transition-all duration-300 group/play shadow-lg active:scale-95 group-hover:border-white/60"
                           >
-                            <span className="text-xs font-black uppercase tracking-widest">Start Now</span>
-                            <div className="w-8 h-8 bg-white/30 group-hover/play:bg-purple-600 rounded-xl flex items-center justify-center transition-colors">
-                              <Play className="h-4 w-4 fill-current group-hover/play:text-white" />
+                            <span className="text-[9px] font-black uppercase tracking-[0.15em] whitespace-nowrap">Start Now</span>
+                            <div className="w-6 h-6 bg-white/20 group-hover/play:bg-white/40 rounded-full flex items-center justify-center transition-colors">
+                              <Play className="h-2.5 w-2.5 fill-white text-white ml-0.5" />
                             </div>
                           </button>
                         </div>
@@ -224,14 +224,14 @@ export function StylesScreen() {
               {focusAreaPrograms.map((program, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-80 rounded-[32px] overflow-hidden shadow-sm snap-start bg-white group hover:shadow-xl transition-all duration-500"
+                  className="flex-shrink-0 w-80 rounded-[32px] overflow-hidden shadow-sm snap-start bg-white/60 backdrop-blur-xl border border-white/50 group hover:shadow-xl transition-all duration-500"
                 >
                   <div className="flex h-44">
                     <div
                       className={`flex-[1.2] bg-gradient-to-br ${program.color} p-7 flex flex-col justify-between relative`}
                     >
                       <div className="relative z-10">
-                        <h3 className="text-2xl font-black text-white leading-tight mb-2">
+                        <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-1 line-clamp-2">
                           {program.title}
                         </h3>
                       </div>
@@ -239,11 +239,11 @@ export function StylesScreen() {
                       <div className="relative z-10">
                         <button 
                           onClick={() => navigate(`/video-session/${program.id}`)}
-                          className="bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-gray-900 px-5 py-3 rounded-2xl flex items-center gap-3 transition-all duration-300 group/play shadow-xl active:scale-95"
+                          className="bg-white/10 backdrop-blur-md hover:bg-white/30 border border-white/40 text-white px-3 py-1.5 rounded-2xl flex items-center gap-2 transition-all duration-300 group/play shadow-lg active:scale-95 group-hover:border-white/60"
                         >
-                          <span className="text-xs font-black uppercase tracking-widest">Start Now</span>
-                          <div className="w-8 h-8 bg-white/30 group-hover/play:bg-purple-600 rounded-xl flex items-center justify-center transition-colors">
-                            <Play className="h-4 w-4 fill-current group-hover/play:text-white" />
+                          <span className="text-[9px] font-black uppercase tracking-[0.15em] whitespace-nowrap">Start Now</span>
+                          <div className="w-6 h-6 bg-white/20 group-hover/play:bg-white/40 rounded-full flex items-center justify-center transition-colors">
+                            <Play className="h-2.5 w-2.5 fill-white text-white ml-0.5" />
                           </div>
                         </button>
                       </div>

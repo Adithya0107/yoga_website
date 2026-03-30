@@ -36,6 +36,27 @@ export function CreateAccountScreen() {
       return;
     }
 
+    // Phone number validation
+    if (!/^\d{10}$/.test(phone)) {
+      toast.error("Phone number must be exactly 10 digits");
+      return;
+    }
+
+    // Password strength validation (matches backend rules)
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+    const missingReqs: string[] = [];
+    if (!/[A-Z]/.test(password)) missingReqs.push("1 uppercase letter (A-Z)");
+    if (!/[a-z]/.test(password)) missingReqs.push("1 lowercase letter (a-z)");
+    if (!/[0-9]/.test(password)) missingReqs.push("1 number (0-9)");
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(password)) missingReqs.push("1 special character (!@#$%^&*)");
+    if (missingReqs.length > 0) {
+      toast.error("Password must contain: " + missingReqs.join(", "));
+      return;
+    }
+
     setIsLoading(true);
     try {
       const result = await api.post('/user/register', {
@@ -56,7 +77,13 @@ export function CreateAccountScreen() {
         navigate("/onboarding/age");
       }
     } catch (error: any) {
-      toast.error(error.message || "Failed to create account");
+      const errorMessage = error.message?.toLowerCase() || "";
+      if (errorMessage.includes("exist") || errorMessage.includes("registered") || errorMessage.includes("already")) {
+        toast.error("Email already existed");
+        navigate("/sign-in");
+      } else {
+        toast.error(error.message || "Failed to create account");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -90,7 +117,7 @@ export function CreateAccountScreen() {
           <InputField
             label="Full Name"
             type="text"
-            placeholder="John Doe"
+            placeholder="Full Name"
             icon={<User className="w-5 h-5" />}
             value={fullName}
             onChange={(val) => setFullName(val)}
@@ -99,7 +126,7 @@ export function CreateAccountScreen() {
           <InputField
             label="Email Address"
             type="email"
-            placeholder="john@example.com (lowercase only)"
+            placeholder="Email Address"
             icon={<Mail className="w-5 h-5" />}
             value={email}
             onChange={(val) => setEmail(val.toLowerCase())}
@@ -108,16 +135,21 @@ export function CreateAccountScreen() {
           <InputField
             label="Phone Number"
             type="tel"
-            placeholder="+1234567890"
+            placeholder="Phone Number"
             icon={<Phone className="w-5 h-5" />}
             value={phone}
-            onChange={(val) => setPhone(val)}
+            onChange={(val) => {
+              const onlyNums = val.replace(/[^0-9]/g, '');
+              if (onlyNums.length <= 10) {
+                setPhone(onlyNums);
+              }
+            }}
           />
 
           <InputField
             label="Password"
             type="password"
-            placeholder="••••••••"
+            placeholder="Password"
             icon={<Lock className="w-5 h-5" />}
             value={password}
             onChange={(val) => setPassword(val)}
@@ -126,7 +158,7 @@ export function CreateAccountScreen() {
           <InputField
             label="Re-enter Password"
             type="password"
-            placeholder="••••••••"
+            placeholder="Re-enter Password"
             icon={<Lock className="w-5 h-5" />}
             value={confirmPassword}
             onChange={(val) => setConfirmPassword(val)}

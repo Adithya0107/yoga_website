@@ -19,7 +19,7 @@ export function GenderScreen() {
   return (
     <OnboardingLayout 
       currentStep={2} 
-      totalSteps={9} 
+      totalSteps={10} 
       onNext={handleNext}
       canProceed={!!selectedGender}
     >
